@@ -59,7 +59,7 @@ def load_data(directory):
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
-    directory = sys.argv[1] if len(sys.argv) == 2 else "small"
+    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
 
     # Load data from files into memory
     print("Loading data...")
@@ -114,11 +114,11 @@ def shortest_path(source, target):
         node = frontier.remove()
         num_explored += 1
 
-        explored.add(node)
+        explored.add(node.state[1])
 
         #ajout des voisins de notre noeud dans le frontier
         for state in neighbors_for_person(node.state[1]):
-            if not frontier.contains_state(state) and state not in explored:
+            if not frontier.contains_state(state) and state[1] not in explored:
                 if state[1] == target:
                     #le but est atteint!
                     shortest_path = []
@@ -130,6 +130,7 @@ def shortest_path(source, target):
                     return shortest_path
                 child = Node(state=state,parent=node)
                 frontier.add(child)
+
 
 
 def person_id_for_name(name):
