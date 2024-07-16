@@ -59,7 +59,7 @@ def load_data(directory):
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
-    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
+    directory = sys.argv[1] if len(sys.argv) == 2 else "small"
 
     # Load data from files into memory
     print("Loading data...")
@@ -106,10 +106,16 @@ def shortest_path(source, target):
     frontier = QueueFrontier()
     frontier.add(start)
 
+    #If the source is the same as the target, the degree of separation is 0
+    if target == source:
+        return []
+
     while True:
 
         if frontier.empty():
-            raise Exception("no solution")
+            #raise Exception("no solution")
+            #No solution->return None as specified
+            return None
         
         node = frontier.remove()
         num_explored += 1
